@@ -6,27 +6,24 @@
 Summary:	Scrab Your Boilerplate generics system
 Summary(pl.UTF-8):	System generyczny Scrab Your Boilerplate
 Name:		ghc-%{pkgname}
-Version:	0.4.1
+Version:	0.7.1
 Release:	1
 License:	BSD
 Group:		Development/Languages
 #Source0Download: http://hackage.haskell.org/package/syb
 Source0:	http://hackage.haskell.org/package/%{pkgname}-%{version}/%{pkgname}-%{version}.tar.gz
-# Source0-md5:	28df3b70cef652fa6c04e6353c580a7a
+# Source0-md5:	8b4330cc60f6f61efc2a937e4658d0f5
 URL:		http://hackage.haskell.org/package/syb
 BuildRequires:	ghc >= 6.12.3
 BuildRequires:	ghc-base >= 4.0
-BuildRequires:	ghc-base < 5
 %if %{with prof}
 BuildRequires:	ghc-prof >= 6.12.3}
 BuildRequires:	ghc-base-prof >= 4.0
-BuildRequires:	ghc-base-prof < 5
 %endif
 BuildRequires:	rpmbuild(macros) >= 1.608
 %requires_eq	ghc
 Requires:	ghc >= 6.12.3
 Requires:	ghc-base >= 4.0
-Requires:	ghc-base < 5
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # debuginfo is not useful for ghc
@@ -56,7 +53,6 @@ Summary(pl.UTF-8):	Biblioteka profilująca %{pkgname} dla GHC
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	ghc-base-prof >= 4.0
-Requires:	ghc-base-prof < 5
 
 %description prof
 Profiling %{pkgname} library for GHC. Should be installed when
@@ -116,24 +112,29 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc LICENSE README
+%doc ChangeLog LICENSE README.md
 %{_libdir}/%{ghcdir}/package.conf.d/%{pkgname}.conf
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/HSsyb-%{version}.o
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSsyb-%{version}.a
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSsyb-%{version}-*.so
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSsyb-%{version}-*.a
+%exclude %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSsyb-%{version}-*_p.a
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Data
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Data/Generics.hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Data/Generics.dyn_hi
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Data/Generics
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Data/Generics/*.hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Data/Generics/*.dyn_hi
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Generics
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Generics/SYB.hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Generics/SYB.dyn_hi
 %dir %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Generics/SYB
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Generics/SYB/*.hi
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Generics/SYB/*.dyn_hi
 
 %if %{with prof}
 %files prof
 %defattr(644,root,root,755)
-%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSsyb-%{version}_p.a
+%{_libdir}/%{ghcdir}/%{pkgname}-%{version}/libHSsyb-%{version}-*_p.a
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Data/Generics.p_hi
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Data/Generics/*.p_hi
 %{_libdir}/%{ghcdir}/%{pkgname}-%{version}/Generics/SYB.p_hi

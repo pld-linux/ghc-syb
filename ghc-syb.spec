@@ -7,7 +7,7 @@ Summary:	Scrab Your Boilerplate generics system
 Summary(pl.UTF-8):	System generyczny Scrab Your Boilerplate
 Name:		ghc-%{pkgname}
 Version:	0.7.1
-Release:	1
+Release:	2
 License:	BSD
 Group:		Development/Languages
 #Source0Download: http://hackage.haskell.org/package/syb
